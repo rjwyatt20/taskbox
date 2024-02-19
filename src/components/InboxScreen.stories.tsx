@@ -1,7 +1,7 @@
 import InboxScreen from './InboxScreen';
 import store from '../lib/store';
 import { rest } from 'msw';
-import { MockedState } from './Tasklist.stories';
+import { MockedState } from './TaskList.stories';
 import { Provider } from 'react-redux';
 
 import {
