@@ -1,0 +1,44 @@
+
+import React, { useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchTasks } from '../lib/store';
+
+import TaskList from './TaskList';
+
+export default function InboxScreen() {
+  const dispatch = useDispatch();
+  // We're retrieving the error field from our updated store
+  const { error, status } = useSelector((state) => {
+    console.log('dispatch', dispatch, 'state', state.taskbox)
+
+    return state.taskbox
+  });
+
+  console.log('error', error, 'status', status)
+  // The useEffect triggers the data fetching when the component is mounted
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
+
+  if (error || status === 403) {
+    return (
+      <div className="page lists-show">
+        <div className="wrapper-message">
+          <span className="icon-face-sad" />
+          <p className="title-message">Oh no!</p>
+          <p className="subtitle-message">Something went wrong</p>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="page lists-show">
+      <nav>
+        <h1 className="title-page">Taskbox</h1>
+      </nav>
+      <TaskList />
+    </div>
+  );
+}
